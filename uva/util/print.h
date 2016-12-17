@@ -2,6 +2,9 @@
 #define UTIL_PRINT
 #include <map>
 #include <iostream>
+/************** NOTE *****************/
+/* Not working for now. Refer to prettyprint for a working version */
+
 using namespace std;
 template <typename _T, typename _T2> 
 void print_map(const map<_T, _T2> &_a) {
