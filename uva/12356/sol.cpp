@@ -6,25 +6,21 @@ using namespace std;
 int main()
 {
     int S, B, i, j, L, R;
+    int left[100001], right[100001];
 
     while(scanf("%d %d\n", &S, &B), (S || B)){
-        vector<int> arr(S+1, 1);
+
+        for(int i = 1; i<= S; i++){
+            left[i] = i-1;
+            right[i] = i+1;
+        }
 
         while(B--){
             scanf("%d %d", &L, &R);
             
-            for(int k = L; k<=R; k++)
-                arr[k] = 0;
+            i = left[L];
+            j = right[R];
 
-            for(i = L; i>0; i--){
-                if(arr[i]) break;
-            }
-
-            for(j = R; j<=S; j++){
-                if(arr[j]) break;
-            }
-
-            
             if(i == 0) cout << "*";
             else cout << i;
 
@@ -34,6 +30,9 @@ int main()
             else cout << j;
 
             cout << endl;
+
+            right[i] = j;
+            left[j] = i;
         }
 
         cout << "-" << endl;
