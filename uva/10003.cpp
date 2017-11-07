@@ -1,41 +1,38 @@
-#include <iostream>;
-#include <string>;
-#include <vector>;
+#include <iostream>
+#include <cstring>
+#include <cstdio>
+#include <algorithm>
 using namespace std;
 
-int n, l, left, right;
-int x[1000];
-int mem[1000][1000];
-vector<int> anws;
-int min_cut(left , right, cuts, cutLeft, cutRight) {
-    if(left +1 == right) return 0;
-    if(mem[left][right] != -1) return mem[left][right];
+int n, l, left, right, ll, j;
+int A[55];
+int mem[55][55];
 
-    for(int k = 0; k < cuts.length; k++){
-        anws.push_back(min_cut(left, k, cuts)+min_cut(k, right, cuts) + cuts[right]-cuts[left]);
-    }
-    
-    min = min_element(anws);
-    mem[left][right] = min;
 
-    return min;
-}
+int min_cut(int x, int y) {
+    if(x +1 == y) return 0;
+    if(mem[x][y] != -1) return mem[x][y];
+
+    int minV = 999999999;
+    for(int k =x+1 ; k < y; k++){
+        minV = min(minV, min_cut(x, k)+ min_cut(k, y) + (A[y]-A[x]));
+    } 
+    return mem[x][y] = minV;
+
+};
 
 
 int main(){
-    while(scanf('%d',&n), n != 0){
-        for(int i = 0; i < 1000; i++){
-            for(int j = 0; j< 1000; j++){
-                mem[i][j] = -1;
-            }
+    while(scanf("%d",&n), n != 0){
+        memset(mem, -1, sizeof mem);
+        scanf("%d", &l);
+        for(ll = 1 ; ll <= l; ll++){
+        scanf("%d", &A[ll]);
         }
-        scanf('%d', &l);
-        ll = l
-        while(ll--){
-           scanf('%d', x[ll-1]);
-        }
+        A[0] = 0;
+        A[l+1] = n;
 
-        printf("The minimum cutting is %d\n", min_cut(0,l, x));
+        printf("The minimum cutting is %d.\n", min_cut(0,l+1));
     }
 }
 
