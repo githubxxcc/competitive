@@ -1,57 +1,32 @@
 
-#include <vector>
-#include <queue>
 #include <iostream>
-
+#include <algorithm>
+#include <vector>
 using namespace std;
 
+int main()
+{
+    int x, mid,mid_l, mid_r;
+    bool odd = true;
+    vector<int> vi;
+    
+    while(scanf("%d", &x) != EOF) {
+        vi.push_back(x);
 
-class comp{
-    bool rev;
+        auto mid_itr = vi.begin()+vi.size()/2;
 
-public: 
-    comp(const bool & rev=false) {
-        this->rev = rev;
-    }
-
-    bool operator()(const int& lhs, const int& rhs) {
-        if(this->rev) return rhs < lhs;
-        else return lhs < rhs;
-    }
-};
-
-typedef priority_queue<int, vector<int>, comp> myq;
-
-int main(){
-  
-    myq right(comp(true));
-    myq left(comp(false));
-    bool even = false;
-    int x, mid;
-
-    while(scanf("%d", &x) != EOF){
-        if(even){
-            if(x <= left.top()) {
-                right.push(left.top());
-                left.pop();
-                left.push(x);
-            } else {
-                right.push(x);
-            }
-            
-            mid = left.top() + (right.top() - left.top()) /2 ;
+        if(odd) {
+            nth_element(vi.begin(), mid_itr, vi.end());
+            mid = *mid_itr;
         } else {
-            if(!left.empty() && x > left.top()){
-                right.push(x);
-                x = right.top();
-                right.pop();
-            }
-            left.push(x);
-            mid = left.top();
+            nth_element(vi.begin(), mid_itr, vi.end());
+            mid_r = *mid_itr;
+            nth_element(vi.begin(), mid_itr-1, vi.end());
+            mid_l = *(mid_itr-1);
+            mid = mid_l + (mid_r-mid_l)/2;
         }
 
+        odd = !odd;
         cout << mid << endl;
-        even = !even;
     }
 }
-
