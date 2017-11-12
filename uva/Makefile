@@ -13,4 +13,8 @@ build:
 test:
 	@cd $(Q) && ./a.out <input.txt
 
+.PHONY: setup
+setup:
+	@mkdir $(Q) && touch $(Q)/sol.cpp
+
 
