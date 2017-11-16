@@ -74,8 +74,8 @@ int main()
         vec.clear();
         records.clear();
 
-        for(int i = 0; i<100; i++){
-            for(int j = 0; j<10; j++)
+        for(int i = 0; i<=100; i++){
+            for(int j = 0;j<10; j++)
                 solved[i][j] = 0;
         }
 
