@@ -15,6 +15,10 @@ test:
 
 .PHONY: setup
 setup:
-	@mkdir $(Q) && touch $(Q)/sol.cpp
+	@mkdir $(Q) && touch $(Q)/sol.cpp $(Q)/input.txt
+
+.PHONY: clean
+clean:
+	@rm -rf $(Q)
 
 
