@@ -21,4 +21,7 @@ setup:
 clean:
 	@rm -rf $(Q)
 
+.PHONY: copy
+copy: 
+	@cd $(Q) && ./a.out <input.txt | pbcopy
 
