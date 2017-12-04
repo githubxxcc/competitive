@@ -1,5 +1,5 @@
 CXX=g++
-CXXFLAGS=-std=+11
+CXXFLAGS=-std=c++0x
 
 .PHONY: all
 all: build test
