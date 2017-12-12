@@ -1,5 +1,6 @@
 #exe 
 *.out
+*.out.*
 
 #text inputs 
 *.txt
