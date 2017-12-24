@@ -19,11 +19,11 @@ typedef vi vector<int>
 
 class ufd {
 private: 
-    vi rank, p; 
+    vi rank, p, setSize;
     int _size;
 public:
         unf(int N) :_size(N) {
-            rank.assign(N, 0), p.assign(N, 0);
+            rank.assign(N, 0), p.assign(N, 0), setSize.assign(N,1);
             for(int i = 0; i<N; i++) 
                p[i] = i; 
         }
@@ -39,13 +39,16 @@ public:
         void unionSet(int i, int j) {
             int pi, pj = findSet(i), findSet(j);
             if(pi != pj) {
-                if(rank[pi] < rank[pj]) p[pi] = pj;
-                else if(rank[pi] > rank[pj]) p[pj] = pi;
-                else { p[pi] = pj; rank[pj]++;}
+                _size--;
+                if(rank[pi] < rank[pj]) {p[pi] = pj;setSize[pj]+=setSize[pi];}
+                else if(rank[pi] > rank[pj]) {p[pj] = pi;setSize[pi] += setSize[pj];
+                else { p[pi] = pj; rank[pj]++; setSize[pj] += setSize[pi];}
             }
         }
 
         int numDisjoint() {
             return _size;
         }
+
+        int sizeOfSet(int i) { return setSize[findSet(i)];}
 };
