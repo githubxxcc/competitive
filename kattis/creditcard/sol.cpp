@@ -56,7 +56,7 @@ int main()
         while(cnt <= 1200) {
             if(B > eps) {
                 cnt+=1;
-                B = round((B+round(B*R)/100.0)*100)/100 - M;
+                B = round((B*100+(B*R)))/100 - M;
             } else {
                 done = true;
                 cout << cnt << endl;
