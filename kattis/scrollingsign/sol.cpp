@@ -39,68 +39,45 @@ int d4[5] = {-1, 0, 1, 0 , -1};
 using namespace std;
 
 typedef vector<int> vi;
-typedef vector<vi> vvi;
 
-//dp = 31 x 15
-//dp[0, i] = 1;
-//dp[j,i] = dp[k, i-1] for k = 0->j;
-void precompute(vector<vector<long long> > &dp) {
-    //0 p, 15 c 
-    FOR(i, 1, 15) {
-        dp[0][i] = 1;
-    }
-    
-    //any p, 1 c 
-    FOR(i, 0, 30) {
-        dp[i][1] = 1;
-    }
-
-    FOR(c, 2, 15) {
-        FOR(p, 1, 30) {
-            FOR(pp, 0, p) {
-                dp[p][c] += dp[pp][c-1];
-            }
+int overlap(string& a, string&b, int k) {
+    int al = a.size();
+    FORR(ll, k, 1)  {
+        if(b.substr(0,ll) == a.substr(al-ll, ll)) {
+            return ll; 
         }
     }
+
+    return 0;
 }
+
 
 int main(){
+    int TC,w , k;
 
-    int n;
-    vector<vector<long long> > dp(31, vector<long long>(16, 0));
-    precompute(dp);
+    cin >> TC;
 
-    while(1) {
-        cin >> n;
+    REP(i, TC) {
+        cin >> k >> w;
+        string s;
+        int count = 0;
 
-        if(n == 0) break;
+        REP(j, w) {
+            if(s.size() == 0)  {
+                cin >> s;
+                count += s.size();
+            } else {
+                int idx = 0;
+                string cur;
+                cin >> cur;
+                int l = s.size()-1;
 
-        vi nums;
-        long long sum = 0;
-
-        REP(i, n) {
-            int x;
-            cin  >> x;
-            nums.pb(x);
-            sum += x;
-        }
-        
-        long long cnt = 1;
-
-        FOR(i, 0, sum-1) {
-            cnt += dp[i][n];
-        }
-
-        FOR(c, 1, n-1) {
-            int y = nums[c-1];
-            FOR(j, 0, y-1) {
-                cnt += dp[sum-j][n-c];
+                idx = overlap(s, cur, k);
+                s.append(cur, idx, string::npos);
             }
-
-            sum-=y;
         }
 
-        cout << cnt << endl;
+        printf("%lu\n", s.size());
     }
-
 }
+
